@@ -25,7 +25,7 @@ class Board extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="board">
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -40,6 +40,9 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
+        </div>
+        <div className="board-winner">
+          {this.props.winner}
         </div>
       </div>
     );
@@ -111,6 +114,7 @@ class Game extends React.Component {
           <Board 
             squares = {current}
             onClick = {(i) => this.handleClick(i)}
+            winner = {winner}
           />
         </div>
         <div className="game-info">
@@ -143,7 +147,7 @@ function calculateWinner(squares) {
   for (const line of lines ) {
     const [a,b,c] = line;
     if (squares[a] && squares[a]===squares[b] && squares[a]===squares[c]) {
-      return [squares[a],line];
+      return squares[a];
     }
   }
   return null;
