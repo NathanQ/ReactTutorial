@@ -41,9 +41,13 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-        <div className="board-winner">
-          {this.props.winner}
-        </div>
+          {this.props.winner &&
+            <div className="board-winner">
+              <p className="board-winner-text">
+                {this.props.winner}
+              </p>  
+            </div>
+          }
       </div>
     );
   }
@@ -68,6 +72,7 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+    console.log('clicked ', i);
     this.setState({
       history: history.concat([squares]),
       stepNumber: history.length,

@@ -29,11 +29,17 @@ ol, ul {
 
 .board-winner {
   position: absolute;
-  left: 14px;
-  line-height: 0.85em;
-  bottom: 0;
-  height: 100%;
-  font-size: 120px;
+  height: 102px;
+  width:  102px;
+  top: 0;
+}
+
+.board-winner-text {
+  font-size: 100px;
+  height: 102px;
+  width:  102px;
+  line-height: 0.85rem;
+  text-align: center;
 }
 
 .status {
