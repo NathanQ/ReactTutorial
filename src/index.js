@@ -34,7 +34,7 @@ class Board extends React.Component {
 
   render() {
     const winner = this.props.winner;
-    const color = winner === 'X' ? '#192' : '#b23';
+    const color = winner === 'X' ? '#192' : ('O' ? '#b23' : '#fff');
     return(
       <div className="board">
         <div className="board-row">
@@ -52,7 +52,7 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-          {winner &&
+          {winner && winner !== 'draw' &&
             <div className="board-winner">
               <p className="board-winner-text" style = {{color:color}}>
                 {winner}
@@ -87,13 +87,6 @@ class Game extends React.Component {
       history: history.concat([squares]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-    });
-  }
-
-  jumpTo(step) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0,
     });
   }
 
@@ -139,6 +132,9 @@ function calculateWinner(squares) {
     if (squares[a] && squares[a]===squares[b] && squares[a]===squares[c]) {
       return squares[a];
     }
+  }
+  if (squares.every((x)=>x)) {
+    return 'draw';
   }
   return null;
 }
