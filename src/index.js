@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  let color = props.value==='X'?'#192':'#b23';
+  let color = props.value==='X' ? '#192' : '#b23';
   return (
     <button 
       style = {{color:color}} 
@@ -26,6 +26,8 @@ class Board extends React.Component {
   }
 
   render() {
+    let winner = this.props.winner;
+    let color = winner === 'X' ? '#192' : '#b23'; 
     return(
       <div className="board">
         <div className="board-row">
@@ -43,10 +45,10 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-          {this.props.winner &&
+          {winner &&
             <div className="board-winner">
-              <p className="board-winner-text">
-                {this.props.winner}
+              <p className="board-winner-text" style = {{color:color}}>
+                {winner}
               </p>  
             </div>
           }
@@ -74,7 +76,6 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
-    console.log('clicked ', i);
     this.setState({
       history: history.concat([squares]),
       stepNumber: history.length,
