@@ -31,11 +31,11 @@ ol, ul {
   position: absolute;
   height: 102px;
   width:  102px;
-  top: 0;
+  top: -76px;
 }
 
 .board-winner-text {
-  font-size: 100px;
+  font-size: 120px;
   height: 102px;
   width:  102px;
   line-height: 0.85rem;
