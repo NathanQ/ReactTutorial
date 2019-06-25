@@ -10,7 +10,7 @@ function Square(props) {
     color = props.mark === 'X' ? '#3e7' : '#f6f';
   }
   let bkgr;
-  if (props.winner) {
+  if (props.result) {
     bkgr = '#fff';
   } else {
     bkgr = props.turn === 'X' ? 'rgba(17,153,34,.2)' : 'rgba(187,34,51,.2)';
@@ -32,15 +32,15 @@ class Board extends React.Component {
         mark = {this.props.current.cells[i]}
         last = {this.props.current.last === i}
         onClick = {() => this.props.onClick(i)}
-        winner = {this.props.winner}
+        result = {this.props.result}
         turn = {this.props.turn}
       />
     );
   }
 
   render() {
-    const winner = this.props.winner;
-    const color = winner === 'X' ? '#192' : ('O' ? '#b23' : '#fff');
+    const result = this.props.result;
+    const color = result === 'X' ? '#192' : ('O' ? '#b23' : '#fff');
     return(
       <div className="board">
         <div className="board-row">
@@ -58,10 +58,10 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-          {winner && winner !== 'draw' &&
+          {result && result !== 'draw' &&
             <div className="board-winner">
               <p className="board-winner-text" style = {{color:color}}>
-                {winner}
+                {result}
               </p>  
             </div>
           }
@@ -88,7 +88,7 @@ class Game extends React.Component {
                            this.state.stepNumber+1);
     const current = history[history.length-1];
     const squares = current.cells.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    if (computeResult(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.turn;
@@ -102,14 +102,14 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.cells);
+    const result = computeResult(current.cells);
     return (
       <div className="game">
         <div className="game-board">
           <Board 
             current = {current}
             onClick = {(i) => this.handleClick(i)}
-            winner = {winner}
+            result = {result}
             turn = {this.state.turn}
           />
         </div>
@@ -125,7 +125,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-function calculateWinner(squares) {
+function computeResult(squares) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
