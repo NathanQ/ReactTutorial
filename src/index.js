@@ -107,15 +107,6 @@ class Game extends React.Component {
       );
     });
 
-    let status;
-    if (winner) {
-      status = 'Winner '+ winner[0];
-    } else if (current.every((x) => x)) {
-      status = 'Game Over';
-    } else {
-      status = 'Next player: '+ (this.state.xIsNext ? 'X' : 'O');
-    };
-
     return (
       <div className="game">
         <div className="game-board">
@@ -126,7 +117,6 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
           <ol>{moves}</ol>
         </div>
       </div>
