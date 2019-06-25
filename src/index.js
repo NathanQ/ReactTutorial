@@ -5,7 +5,12 @@ import './index.css';
 function Square(props) {
   console.log(props.xIsNext);
   const color = props.value==='X' ? '#192' : '#b23';
-  const bkgr = props.xIsNext ? 'rgba(17,153,34,.5)' : 'rgba(187,34,51,.5)';
+  let bkgr;
+  if (props.winner) {
+    bkgr = '#fff'
+  } else {
+    bkgr = props.xIsNext ? 'rgba(17,153,34,.5)' : 'rgba(187,34,51,.5)';
+  }
   return (
     <button className="square" 
       style = {{color:color, background:bkgr}} 
@@ -23,6 +28,7 @@ class Board extends React.Component {
         value = {this.props.squares[i]}
         onClick = {() => this.props.onClick(i)}
         xIsNext = {this.props.xIsNext}
+        winner = {this.props.winner}
       />
     );
   }
