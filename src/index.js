@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  let color = props.value==='X' ? '#192' : '#b23';
+  console.log(props.xIsNext);
+  const color = props.value==='X' ? '#192' : '#b23';
+  const bkgr = props.xIsNext ? 'rgba(17,153,34,.5)' : 'rgba(187,34,51,.5)';
   return (
-    <button 
-      style = {{color:color}} 
-      className="square" 
+    <button className="square" 
+      style = {{color:color, background:bkgr}} 
       onClick={props.onClick}
     >
        {props.value}
@@ -19,15 +20,16 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
+        value = {this.props.squares[i]}
+        onClick = {() => this.props.onClick(i)}
+        xIsNext = {this.props.xIsNext}
       />
     );
   }
 
   render() {
-    let winner = this.props.winner;
-    let color = winner === 'X' ? '#192' : '#b23'; 
+    const winner = this.props.winner;
+    const color = winner === 'X' ? '#192' : '#b23';
     return(
       <div className="board">
         <div className="board-row">
@@ -94,6 +96,8 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current);
+    const xIsNext = this.state.xIsNext;
+    console.log(xIsNext);
     return (
       <div className="game">
         <div className="game-board">
@@ -101,6 +105,7 @@ class Game extends React.Component {
             squares = {current}
             onClick = {(i) => this.handleClick(i)}
             winner = {winner}
+            xIsNext = {this.state.xIsNext}
           />
         </div>
       </div>
