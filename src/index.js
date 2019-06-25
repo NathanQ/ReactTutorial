@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  console.log(props.xIsNext);
   const color = props.value==='X' ? '#192' : '#b23';
   let bkgr;
   if (props.winner) {
@@ -102,8 +101,6 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current);
-    const xIsNext = this.state.xIsNext;
-    console.log(xIsNext);
     return (
       <div className="game">
         <div className="game-board">
