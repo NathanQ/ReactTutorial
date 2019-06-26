@@ -103,26 +103,19 @@ class Game extends React.Component {
   }
 
   undo() {
-    console.log('undo');
-    if (this.state.stepNumber) {
-      this.setState({
-        stepNumber: this.state.stepNumber-1,
-        turn: this.state.turn === 'X' ? 'O' : 'X',
-      });
-    }
-    console.log(this.state.history.length);
+    this.setState({
+      stepNumber: this.state.stepNumber-1,
+      turn: this.state.turn === 'X' ? 'O' : 'X',
+    });
   }
 
   redo() {
-    console.log('redo');
-    if (this.state.stepNumber < this.state.history.length-1) {
-      this.setState({
-        stepNumber: this.state.stepNumber+1,
-        turn: this.state.turn === 'X' ? 'O' : 'X',
-      });
-    }
+    this.setState({
+      stepNumber: this.state.stepNumber+1,
+      turn: this.state.turn === 'X' ? 'O' : 'X',
+    });
   }
-
+  
   newGame() {
     this.setState({
       history: [{
@@ -136,8 +129,10 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
+    const step = this.state.stepNumber;
     const current = history[this.state.stepNumber];
     const result = computeResult(current.cells);
+    console.log('step', step);
     return (
       <div className="game">
         <div className="game-board">
@@ -149,10 +144,14 @@ class Game extends React.Component {
           />
         </div>
         <div className = "btn-group">
-          <button onClick={this.undo}>
+          <button onClick={this.undo} 
+            disabled = {step === 0}
+          >
             Undo
           </button>
-          <button onClick={this.redo}>
+          <button onClick={this.redo} 
+            disabled ={step === history.length-1}
+          >
             Redo
           </button>
           <button onClick={this.newGame}>
